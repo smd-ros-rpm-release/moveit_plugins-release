@@ -1,0 +1,19 @@
+ros-hydro-moveit-plugins (0.4.1-0precise) precise; urgency=high
+
+  * minor updates to package.xml
+
+ -- Michael Ferguson <fergs@unboundedrobotics.com>  Tue, 02 Jul 2013 21:00:00 -0000
+
+ros-hydro-moveit-plugins (0.4.0-0precise) precise; urgency=high
+
+  * debs look good, bump to 0.4.0
+
+ -- Michael Ferguson <fergs@unboundedrobotics.com>  Wed, 05 Jun 2013 21:00:00 -0000
+
+ros-hydro-moveit-plugins (0.1.0-0precise) precise; urgency=high
+
+  * add metapackage, clean up build in controller manager
+
+ -- Michael Ferguson <fergs@unboundedrobotics.com>  Tue, 04 Jun 2013 21:00:00 -0000
+
+
