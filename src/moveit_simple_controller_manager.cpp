@@ -50,9 +50,9 @@ namespace moveit_simple_controller_manager
 class MoveItSimpleControllerManager : public moveit_controller_manager::MoveItControllerManager
 {
 public:
-  
+
   MoveItSimpleControllerManager() : node_handle_("~")
-  { 
+  {
     if (!node_handle_.hasParam("controller_list"))
     {
       ROS_ERROR_STREAM("MoveitSimpleControllerManager: No controller_list specified.");
@@ -66,7 +66,7 @@ public:
       ROS_ERROR("MoveitSimpleControllerManager: controller_list should be specified as an array");
       return;
     }
-    
+
     /* actually create each controller */
     for (int i = 0 ; i < controller_list.size() ; ++i)
     {
@@ -75,14 +75,22 @@ public:
         ROS_ERROR("MoveitSimpleControllerManager: Name and joints must be specifed for each controller");
         continue;
       }
-      
+
       try
       {
         std::string name = std::string(controller_list[i]["name"]);
 
-        std::string ns;
+        std::string action_ns;
         if (controller_list[i].hasMember("ns"))
-          ns = std::string(controller_list[i]["ns"]);
+        {
+          /* TODO: this used to be called "ns", renaming to "action_ns" and will remove in the future */
+          action_ns = std::string(controller_list[i]["ns"]);
+          ROS_WARN("MoveitSimpleControllerManager: use of 'ns' is deprecated, use 'action_ns' instead.");
+        }
+        else if (controller_list[i].hasMember("action_ns"))
+          action_ns = std::string(controller_list[i]["action_ns"]);
+        else
+          ROS_WARN("MoveitSimpleControllerManager: please note that 'action_ns' no longer has a default value.");
 
         if (controller_list[i]["joints"].getType() != XmlRpc::XmlRpcValue::TypeArray)
         {
@@ -101,11 +109,11 @@ public:
         ActionBasedControllerHandleBasePtr new_handle;
         if ( type == "GripperCommand" )
         {
-          new_handle.reset(ns.empty() ? new GripperControllerHandle(name) : new GripperControllerHandle(name, ns));
+          new_handle.reset(new GripperControllerHandle(name, action_ns));
           if (static_cast<GripperControllerHandle*>(new_handle.get())->isConnected())
           {
             if (controller_list[i].hasMember("command_joint"))
-                static_cast<GripperControllerHandle*>(new_handle.get())->setCommandJoint(controller_list[i]["command_joint"]);                
+                static_cast<GripperControllerHandle*>(new_handle.get())->setCommandJoint(controller_list[i]["command_joint"]);
             else
                 static_cast<GripperControllerHandle*>(new_handle.get())->setCommandJoint(controller_list[i]["joints"][0]);
 
@@ -118,7 +126,7 @@ public:
         }
         else if ( type == "FollowJointTrajectory" )
         {
-          new_handle.reset(ns.empty() ? new FollowJointTrajectoryControllerHandle(name) : new FollowJointTrajectoryControllerHandle(name, ns));
+          new_handle.reset(new FollowJointTrajectoryControllerHandle(name, action_ns));
           if (static_cast<FollowJointTrajectoryControllerHandle*>(new_handle.get())->isConnected())
           {
             ROS_INFO_STREAM("MoveitSimpleControllerManager: Added FollowJointTrajectory controller for " << name );
@@ -136,7 +144,7 @@ public:
       }
     }
   }
-  
+
   virtual ~MoveItSimpleControllerManager()
   {
   }
@@ -157,7 +165,7 @@ public:
    * Get the list of controller names.
    */
   virtual void getControllersList(std::vector<std::string> &names)
-  {    
+  {
     for (std::map<std::string, ActionBasedControllerHandleBasePtr>::const_iterator it = controllers_.begin() ; it != controllers_.end() ; ++it)
       names.push_back(it->first);
     ROS_INFO_STREAM("Returned " << names.size() << " controllers in list");
@@ -209,9 +217,9 @@ public:
 
   /* Cannot switch our controllers */
   virtual bool switchControllers(const std::vector<std::string> &activate, const std::vector<std::string> &deactivate) { return false; }
-  
+
 protected:
-  
+
   ros::NodeHandle node_handle_;
   std::map<std::string, ActionBasedControllerHandleBasePtr> controllers_;
 };
