@@ -2,9 +2,17 @@
 Changelog for package moveit_simple_controller_manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.4.2 (2013-07-30)
+Forthcoming
+-----------
+* make headers and author definitions aligned the same way; white space fixes
+* fix `#1 <https://github.com/ros-planning/moveit_plugins/issues/1>`_
+
+0.5.1 (2013-07-30)
 ------------------
 * ns parameter is now action_ns, get rid of defaults
+
+0.5.0 (2013-07-16)
+------------------
 * white space fixes (tabs are now spaces)
 
 0.4.1 (2013-07-03)
