@@ -1,3 +1,24 @@
+## moveit_plugins - 0.5.2-0
+
+User `isucan@i7` released the packages in the `moveit_plugins` repository by running `/usr/local/bin/bloom-release --track hydro -r hydro moveit_plugins` on `Tue, 13 Aug 2013 16:56:20 -0000`
+
+These packages were released:
+- `moveit_plugins`
+- `moveit_simple_controller_manager`
+
+Version of package(s) in repository `moveit_plugins`:
+- rosdistro version: `0.5.1-0`
+- old version: `0.5.1-0`
+- new version: `0.5.2-0`
+
+Versions of tools used:
+- bloom version: `0.4.4`
+- catkin_pkg version: `0.1.19`
+- rosdep version: `0.10.21`
+- rosdistro version: `0.2.13`
+- vcstools version: `0.1.31`
+
+
 ## moveit_plugins - 0.4.2-0
 
 User `isucan@i7` released the packages in the `moveit_plugins` repository by running `/usr/local/bin/bloom-release --track groovy --ros-distro groovy moveit_plugins` on `Tue, 30 Jul 2013 11:12:04 -0000`
