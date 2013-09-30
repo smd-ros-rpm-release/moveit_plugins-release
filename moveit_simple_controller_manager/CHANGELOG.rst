@@ -2,6 +2,12 @@
 Changelog for package moveit_simple_controller_manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.5 (2013-09-30)
+------------------
+* properly fill in the gripper command effort
+* allow trajectories with >1 points, use the last point of any trajectory
+* added better error reporting for FollowJointTrajectoryControllers
+
 0.5.4 (2013-09-24)
 ------------------
 
